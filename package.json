@@ -1,0 +1,32 @@
+{
+  "name": "sabaijai-music",
+  "version": "0.1.0",
+  "description": "Sabaijai Music - Electron wrapper for the web player",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . SabaijaiMusic --platform=win32 --arch=x64 --out=dist --overwrite",
+    "dist": "electron-builder",
+    "lint": "echo \"no lint configured\""
+  },
+  "build": {
+    "appId": "com.sabaijai.music",
+    "productName": "SabaijaiMusic",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": ["nsis"],
+      "icon": "build/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.0.0",
+    "electron-packager": "^17.0.0"
+  }
+}

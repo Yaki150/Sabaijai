@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sabaijai Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="soft-aurora.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand-group">
+        <div class="brand-logo">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width: 34px; height: 34px;">
+            <g id="flower-left">
+              <path d="M 70 80 Q 65 100 70 120" stroke="#1ED760" stroke-width="3" fill="none"/>
+              <path d="M 70 90 Q 55 95 50 100" stroke="#1ED760" stroke-width="2" fill="none"/>
+              <path d="M 70 100 Q 60 105 55 115" stroke="#1ED760" stroke-width="2" fill="none"/>
+              <circle cx="70" cy="75" r="4" fill="#1ED760"/>
+              <circle cx="75" cy="70" r="4" fill="#1ED760"/>
+              <circle cx="80" cy="75" r="4" fill="#1ED760"/>
+              <circle cx="78" cy="80" r="4" fill="#1ED760"/>
+              <circle cx="72" cy="80" r="3" fill="#1ED760"/>
+            </g>
+            <g id="music-notes" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round">
+              <line x1="100" y1="50" x2="100" y2="100"/>
+              <circle cx="95" cy="105" r="6" fill="#FFFFFF"/>
+              <line x1="115" y1="60" x2="115" y2="110"/>
+              <circle cx="110" cy="115" r="6" fill="#FFFFFF"/>
+              <path d="M 100 50 Q 107 55 115 60" fill="none"/>
+            </g>
+            <g id="decoration" fill="#1ED760">
+              <circle cx="60" cy="50" r="3"/>
+              <circle cx="140" cy="60" r="2.5"/>
+              <circle cx="150" cy="90" r="2"/>
+            </g>
+            <g id="leaf-right">
+              <path d="M 130 90 Q 135 100 130 115" stroke="#1ED760" stroke-width="2" fill="none"/>
+              <path d="M 130 95 Q 140 98 145 100" stroke="#1ED760" stroke-width="2" fill="none"/>
+              <path d="M 130 105 Q 138 110 142 115" stroke="#1ED760" stroke-width="2" fill="none"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <h1>Sabaijai Music</h1>
+          <p>Private Playlist</p>
+        </div>
+      </div>
+      <div class="header-search" id="headerSearch">
+        <button id="searchIconBtn" class="search-icon-btn" type="button" title="Recent searches" aria-haspopup="true" aria-expanded="false">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <input id="searchInput" type="search" placeholder="What do you want to play?" autocomplete="off" />
+        <button id="searchClearBtn" class="search-clear-btn hidden" type="button" title="Clear search" aria-label="Clear search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div id="searchRecentsMenu" class="search-recents-menu hidden">
+          <div class="search-recents-header">
+            <span>Recent searches</span>
+            <button id="searchClearRecentsBtn" class="search-recents-clear" type="button">Clear</button>
+          </div>
+          <ul id="searchRecentsList" class="search-recents-list"></ul>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" type="button" title="Notifications">🔔</button>
+        <button class="icon-btn avatar-btn" type="button" title="Profile">👤</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <p class="sidebar-label">Your Library</p>
+          <button id="createPlaylistBtn" class="sidebar-create" title="Create playlist">+</button>
+        </div>
+        <div class="sidebar-tabs">
+          <button class="tab-btn active">Playlists</button>
+          <button class="tab-btn">Podcasts</button>
+        </div>
+        <div class="sidebar-items" id="sidebarItems">
+          <button class="nav-item active" data-playlist="liked-songs">
+            <span class="nav-item-icon liked-icon">♥</span>
+            <span class="nav-item-text">
+              <span class="nav-item-title">Liked Songs</span>
+              <span class="nav-item-sub">Playlist</span>
+            </span>
+          </button>
+        </div>
+        <div class="sidebar-footer">
+          <label for="fileInput" class="upload-label">
+            <span class="upload-icon">+</span> เพิ่มเพลง
+          </label>
+          <input id="fileInput" type="file" accept="audio/*" multiple hidden />
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="playlist-header">
+          <div id="playlistAurora" class="soft-aurora-container"></div>
+          <div class="playlist-image" id="playlistImageContainer" title="Choose photo">
+            <span class="playlist-image-placeholder">♪</span>
+          </div>
+          <input id="playlistImageInput" type="file" accept="image/*" hidden />
+          <div class="playlist-meta">
+            <span class="playlist-type">Private Playlist</span>
+            <h2 id="playlistTitle" class="playlist-title">Liked Songs</h2>
+            <div class="playlist-sub" id="playlistSub">0 songs</div>
+            <div class="playlist-actions">
+              <button id="playPlaylistBtn" class="primary-btn" type="button">▶</button>
+              <button id="nameDetailsBtn" class="secondary-btn" type="button">Name &amp; details</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="track-table-section">
+          <div class="table-header">
+            <div>
+              <h3>Tracks</h3>
+              <p>Recently added</p>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table class="track-table">
+              <thead>
+                <tr>
+                  <th class="col-idx">#</th>
+                  <th>Title</th>
+                  <th>Album</th>
+                  <th>Date added</th>
+                  <th class="col-duration">⏱</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="trackList"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section-group playlist-panel">
+          <div class="section-header">
+            <h3>เพลย์ลิสต์</h3>
+            <p>เพลงที่เพิ่มไว้สำหรับเล่นต่อ</p>
+          </div>
+          <div id="playlistItems" class="playlist-items">
+            <p class="empty-state">ยังไม่มีเพลงในเพลย์ลิสต์</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="details-panel">
+        <div class="panel-card">
+          <div class="panel-cover" id="panelCover"></div>
+          <div class="panel-info">
+            <p class="section-title">Liked Songs</p>
+            <h3 id="panelSongTitle">Song</h3>
+            <span id="panelSongArtist">Choose a track to play</span>
+          </div>
+        </div>
+        <div class="panel-card about-card">
+          <p class="section-title">About the artist</p>
+          <p>Artist PUN blends melancholic guitar with warm vocal melodies for an intimate listening experience.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div id="detailsModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <p class="modal-title">Edit details</p>
+          </div>
+          <button id="closeModalBtn" class="close-modal" type="button">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-image-row">
+            <div id="modalImagePreview" class="modal-image-preview" title="Click to upload">
+              <span class="playlist-image-placeholder small">♪</span>
+            </div>
+            <input id="modalImageInput" type="file" accept="image/*" hidden />
+            <div class="modal-fields">
+              <label>Playlist name</label>
+              <input id="playlistNameInput" type="text" value="Liked Songs" />
+              <label>Description</label>
+              <textarea id="playlistDescTextarea" rows="3">Liked Songs</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="saveModalBtn" class="primary-btn" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="player-bar">
+      <div class="player-left">
+        <div id="playerCover" class="player-cover"></div>
+        <div class="player-status">
+          <span id="nowPlayingTitle" class="now-title">ยังไม่ได้เล่นเพลง</span>
+          <span id="nowPlayingArtist" class="now-artist">—</span>
+        </div>
+        <button id="likeBtn" class="icon-small like-btn" title="Save to Liked Songs">♡</button>
+      </div>
+      <div class="player-middle">
+        <div class="player-controls-row">
+          <button id="prevBtn" class="player-btn" title="เพลงก่อนหน้า">⏮</button>
+          <button id="playPauseBtn" class="player-btn play-main" title="เล่น / หยุด">▶</button>
+          <button id="nextBtn" class="player-btn" title="เพลงถัดไป">⏭</button>
+          <button id="loopBtn" class="player-btn" title="เปิด/ปิดวนลูป">🔁</button>
+        </div>
+        <div class="seek-row">
+          <span id="currentTime" class="time-display">0:00</span>
+          <input id="seekSlider" type="range" min="0" max="100" value="0" class="progress-bar" />
+          <span id="durationTime" class="time-display">0:00</span>
+        </div>
+      </div>
+      <div class="player-extra">
+        <div class="volume-control">
+          <button id="volumeToggle" class="icon-small" title="Mute volume">🔊</button>
+          <input id="volumeSlider" type="range" min="0" max="100" value="70" class="volume-slider" title="Volume" />
+        </div>
+        <button class="icon-small" title="Options">⋮</button>
+      </div>
+    </footer>
+
+    <audio id="audioPlayer"></audio>
+  </div>
+
+  <script type="module">
+    import { createSoftAurora } from './soft-aurora.js';
+
+    const auroraEl = document.getElementById('playlistAurora');
+    if (auroraEl) {
+      createSoftAurora(auroraEl, {
+        speed: 0.5,
+        scale: 1.4,
+        brightness: 0.9,
+        color1: '#1ED760',
+        color2: '#7a2ee6',
+        noiseFrequency: 2.2,
+        noiseAmplitude: 6,
+        bandHeight: 0.55,
+        bandSpread: 0.9,
+        octaveDecay: 0.12,
+        layerOffset: 1.2,
+        colorSpeed: 1.4,
+        enableMouseInteraction: true,
+        mouseInfluence: 0.18
+      });
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
