@@ -1,15 +1,19 @@
 :root {
-  --bg-black: #000000;
-  --bg-base: #121212;
-  --bg-elevated: #181818;
-  --bg-elevated-hover: #282828;
-  --bg-highlight: #2a2a2a;
+  --bg-black: #050816;
+  --bg-base: #0d1220;
+  --bg-panel: rgba(19, 24, 37, 0.92);
+  --bg-elevated: rgba(23, 31, 48, 0.9);
+  --bg-elevated-hover: rgba(39, 48, 70, 0.95);
+  --bg-highlight: rgba(255,255,255,0.06);
   --green: #1ED760;
   --green-dark: #1DB954;
-  --text-primary: #FFFFFF;
-  --text-secondary: #B3B3B3;
-  --text-muted: #6a6a6a;
+  --purple: #7c4dff;
+  --pink: #ff6fd8;
+  --text-primary: #F7F9FC;
+  --text-secondary: #B4BED3;
+  --text-muted: #75809a;
   --border: rgba(255,255,255,0.08);
+  --shadow-soft: 0 10px 35px rgba(11, 17, 32, 0.38);
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
@@ -18,10 +22,17 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg-black);
+  background:
+    radial-gradient(circle at top left, rgba(124, 77, 255, 0.32), transparent 24%),
+    radial-gradient(circle at top right, rgba(30, 215, 96, 0.18), transparent 28%),
+    linear-gradient(180deg, #060b15 0%, #0b1220 32%, #070d18 100%);
   color: var(--text-primary);
   font-family: var(--font);
   height: 100%;
+}
+
+body {
+  letter-spacing: 0.01em;
 }
 
 button, input, textarea {
@@ -32,6 +43,7 @@ button, input, textarea {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background: linear-gradient(180deg, rgba(7, 13, 23, 0.9), rgba(12, 16, 26, 0.9));
 }
 
 /* ---------- Header ---------- */
@@ -40,8 +52,12 @@ button, input, textarea {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 8px 16px;
-  background: var(--bg-black);
+  padding: 12px 18px;
+  background: rgba(7, 11, 18, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
   flex-shrink: 0;
   z-index: 10;
 }
@@ -49,16 +65,19 @@ button, input, textarea {
 .brand-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   min-width: 180px;
 }
 
 .brand-logo {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(30, 215, 96, 0.2), rgba(124, 77, 255, 0.18));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 8px 16px rgba(30, 215, 96, 0.15);
 }
 
 .brand-group h1 {
@@ -94,7 +113,7 @@ button, input, textarea {
   border: none;
   background: transparent;
   border-radius: 50%;
-  color: #000000;
+  color: #111827;
   cursor: pointer;
   z-index: 2;
 }
@@ -114,22 +133,25 @@ button, input, textarea {
 
 .header-search input {
   width: 100%;
-  background: #FFFFFF;
-  border: none;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+  border: 1px solid rgba(17, 24, 39, 0.05);
   border-radius: 500px;
   padding: 11px 36px 11px 40px;
   font-size: 14px;
   font-weight: 500;
   color: #000000;
   outline: none;
+  box-shadow: 0 6px 18px rgba(17, 24, 39, 0.12);
+}
+
+.header-search input:focus {
+  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.18);
 }
 
 .header-search input::placeholder {
   color: #6a6a6a;
 }
 
-/* Suppress the browser's own default type=search decorations so
-   our custom leading/trailing buttons are the only ones shown. */
 .header-search input[type="search"]::-webkit-search-decoration,
 .header-search input[type="search"]::-webkit-search-cancel-button,
 .header-search input[type="search"]::-webkit-search-results-button,
@@ -145,7 +167,7 @@ button, input, textarea {
   height: 22px;
   border: none;
   border-radius: 50%;
-  background: #b3b3b3;
+  background: rgba(17, 24, 39, 0.32);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -155,23 +177,22 @@ button, input, textarea {
 }
 
 .search-clear-btn:hover {
-  background: #8c8c8c;
+  background: rgba(17, 24, 39, 0.55);
 }
 
 .search-clear-btn.hidden {
   display: none;
 }
 
-/* Recent-searches dropdown, styled like a searchMenuTemplate menu */
 .search-recents-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   left: 0;
   width: 260px;
-  background: var(--bg-elevated);
+  background: rgba(17, 22, 34, 0.96);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
   z-index: 50;
   overflow: hidden;
 }
@@ -227,15 +248,17 @@ button, input, textarea {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 8px;
-  border-radius: 4px;
+  padding: 9px 10px;
+  border-radius: 8px;
   font-size: 13px;
   color: var(--text-primary);
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .search-recents-item:hover {
-  background: var(--bg-elevated-hover);
+  background: rgba(255,255,255,0.04);
+  transform: translateX(2px);
 }
 
 .search-recents-item .recents-icon {
@@ -281,23 +304,24 @@ button, input, textarea {
   height: 34px;
   border-radius: 50%;
   border: none;
-  background: var(--bg-elevated-hover);
+  background: rgba(255,255,255,0.06);
   color: var(--text-primary);
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .icon-btn:hover {
-  transform: scale(1.06);
-  background: #3a3a3a;
+  transform: translateY(-1px) scale(1.04);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.18);
 }
 
 .avatar-btn {
-  background: #535353;
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.4), rgba(255, 111, 216, 0.24));
   border-radius: 50%;
 }
 
@@ -312,15 +336,16 @@ button, input, textarea {
   min-height: 0;
 }
 
-/* ---------- Sidebar ---------- */
 .sidebar {
-  background: var(--bg-base);
-  border-radius: 8px;
+  background: rgba(12, 18, 29, 0.86);
+  border-radius: 18px;
   padding: 16px 12px;
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: var(--shadow-soft);
 }
 
 .sidebar-top {
@@ -338,11 +363,11 @@ button, input, textarea {
 }
 
 .sidebar-create {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: none;
-  background: var(--bg-elevated-hover);
+  background: rgba(255,255,255,0.06);
   color: var(--text-secondary);
   font-size: 16px;
   cursor: pointer;
@@ -350,8 +375,9 @@ button, input, textarea {
 }
 
 .sidebar-create:hover {
-  background: #3a3a3a;
+  background: rgba(255,255,255,0.12);
   color: var(--text-primary);
+  transform: rotate(90deg);
 }
 
 .sidebar-tabs {
@@ -362,17 +388,19 @@ button, input, textarea {
 
 .tab-btn {
   border: none;
-  background: var(--bg-elevated);
+  background: rgba(255,255,255,0.04);
   color: var(--text-primary);
   border-radius: 500px;
   padding: 7px 14px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
 .tab-btn.active {
-  background: var(--bg-elevated-hover);
+  background: rgba(30, 215, 96, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(30, 215, 96, 0.25);
 }
 
 .tab-btn:not(.active) {
@@ -395,28 +423,31 @@ button, input, textarea {
   background: transparent;
   color: var(--text-secondary);
   padding: 8px;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   text-align: left;
   width: 100%;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .nav-item:hover, .nav-item.active {
-  background: var(--bg-elevated-hover);
+  background: rgba(255,255,255,0.05);
   color: var(--text-primary);
+  transform: translateX(2px);
 }
 
 .nav-item-icon {
   width: 44px;
   height: 44px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #450af5, #c4efd9);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   color: #fff;
+  box-shadow: 0 12px 18px rgba(69, 10, 245, 0.25);
 }
 
 .liked-icon {
@@ -453,18 +484,19 @@ button, input, textarea {
   align-items: center;
   gap: 8px;
   justify-content: center;
-  background: var(--bg-elevated-hover);
+  background: linear-gradient(135deg, rgba(30, 215, 96, 0.18), rgba(124, 77, 255, 0.09));
   color: var(--text-primary);
   border-radius: 500px;
   padding: 10px 14px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .upload-label:hover {
-  background: #3a3a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(30, 215, 96, 0.14);
 }
 
 .upload-icon {
@@ -474,10 +506,12 @@ button, input, textarea {
 
 /* ---------- Main content ---------- */
 .main-content {
-  background: var(--bg-base);
-  border-radius: 8px;
+  background: rgba(12, 18, 29, 0.86);
+  border-radius: 18px;
   overflow-y: auto;
   min-height: 0;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: var(--shadow-soft);
 }
 
 .playlist-header {
@@ -487,7 +521,8 @@ button, input, textarea {
   gap: 24px;
   padding: 24px;
   overflow: hidden;
-  background: linear-gradient(180deg, #4a2a6d 0%, #181135 60%, var(--bg-base) 100%);
+  background: linear-gradient(135deg, rgba(94, 60, 153, 0.96) 0%, rgba(34, 28, 71, 0.92) 40%, rgba(11, 18, 29, 0.9) 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .playlist-header .soft-aurora-container {
@@ -505,9 +540,9 @@ button, input, textarea {
   width: 190px;
   height: 190px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 16px;
   background: linear-gradient(135deg, #450af5, #c4efd9);
-  box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -515,6 +550,7 @@ button, input, textarea {
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.18);
 }
 
 .playlist-image-placeholder {
@@ -537,6 +573,9 @@ button, input, textarea {
 .playlist-type {
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.66);
 }
 
 .playlist-title {
@@ -564,7 +603,7 @@ button, input, textarea {
 }
 
 .primary-btn {
-  background: var(--green);
+  background: linear-gradient(135deg, #1ed760, #8ef7b0);
   color: #000000;
   border: none;
   border-radius: 500px;
@@ -575,17 +614,18 @@ button, input, textarea {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 12px 28px rgba(30, 215, 96, 0.35);
 }
 
 .primary-btn:hover {
   transform: scale(1.06);
-  background: var(--green-dark);
+  background: linear-gradient(135deg, #1ecf5a, #7ae9a7);
 }
 
 .secondary-btn {
-  background: transparent;
-  border: 1px solid var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.2);
   color: var(--text-secondary);
   border-radius: 500px;
   padding: 8px 16px;
@@ -596,8 +636,9 @@ button, input, textarea {
 }
 
 .secondary-btn:hover {
-  border-color: var(--text-primary);
+  border-color: rgba(255,255,255,0.45);
   color: var(--text-primary);
+  background: rgba(255,255,255,0.06);
 }
 
 /* ---------- Track table ---------- */
@@ -644,10 +685,11 @@ button, input, textarea {
   font-size: 14px;
   color: var(--text-secondary);
   border-radius: 4px;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .track-row:hover {
-  background: var(--bg-elevated-hover);
+  background: rgba(255,255,255,0.04);
   cursor: pointer;
 }
 
@@ -674,11 +716,12 @@ button, input, textarea {
 .track-cover {
   width: 40px;
   height: 40px;
-  border-radius: 4px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #2a2a72, #009ffd);
   flex-shrink: 0;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
 .track-title-text {
@@ -729,7 +772,6 @@ button, input, textarea {
   padding: 16px 24px;
 }
 
-/* ---------- Playlist queue panel ---------- */
 .section-group {
   padding: 16px 24px 24px;
 }
@@ -755,40 +797,45 @@ button, input, textarea {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 6px 8px;
-  border-radius: 4px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
 }
 
 .queue-item:hover {
-  background: var(--bg-elevated-hover);
+  background: rgba(255,255,255,0.04);
 }
 
 /* ---------- Details panel ---------- */
 .details-panel {
-  background: var(--bg-base);
-  border-radius: 8px;
+  background: rgba(12, 18, 29, 0.86);
+  border-radius: 18px;
   padding: 12px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
   min-height: 0;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: var(--shadow-soft);
 }
 
 .panel-card {
-  background: var(--bg-elevated);
-  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(23,31,48,0.9), rgba(17,21,32,0.9));
+  border-radius: 14px;
   padding: 16px;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .panel-cover {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 4px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #450af5, #c4efd9);
   margin-bottom: 12px;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 16px 24px rgba(0,0,0,0.22);
 }
 
 .section-title {
@@ -817,7 +864,6 @@ button, input, textarea {
   margin: 0;
 }
 
-/* ---------- Modal ---------- */
 .modal {
   position: fixed;
   inset: 0;
@@ -833,11 +879,12 @@ button, input, textarea {
 }
 
 .modal-content {
-  background: var(--bg-elevated);
-  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(18,24,38,0.96), rgba(12,17,28,0.96));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
   width: 460px;
   max-width: 90vw;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.62);
 }
 
 .modal-header {
@@ -874,7 +921,7 @@ button, input, textarea {
   width: 120px;
   height: 120px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #450af5, #c4efd9);
   display: flex;
   align-items: center;
@@ -882,6 +929,7 @@ button, input, textarea {
   cursor: pointer;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 12px 20px rgba(0,0,0,0.2);
 }
 
 .modal-fields {
@@ -904,9 +952,9 @@ button, input, textarea {
 }
 
 .modal-fields input, .modal-fields textarea {
-  background: var(--bg-highlight);
-  border: 1px solid #3a3a3a;
-  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
   color: var(--text-primary);
   padding: 8px 10px;
   font-size: 13px;
@@ -915,7 +963,8 @@ button, input, textarea {
 }
 
 .modal-fields input:focus, .modal-fields textarea:focus {
-  border-color: var(--text-primary);
+  border-color: rgba(124, 77, 255, 0.7);
+  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.12);
 }
 
 .modal-footer {
@@ -940,8 +989,10 @@ button, input, textarea {
   align-items: center;
   gap: 16px;
   padding: 12px 16px;
-  background: var(--bg-black);
+  background: rgba(8, 10, 16, 0.94);
   border-top: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   flex-shrink: 0;
 }
 
@@ -955,11 +1006,12 @@ button, input, textarea {
 .player-cover {
   width: 56px;
   height: 56px;
-  border-radius: 4px;
-  background: var(--bg-elevated-hover);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #450af5, #c4efd9);
   flex-shrink: 0;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 12px 20px rgba(0,0,0,0.25);
 }
 
 .player-status {
@@ -1026,7 +1078,7 @@ button, input, textarea {
 }
 
 .play-main {
-  background: var(--text-primary);
+  background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
   color: #000000;
   width: 32px;
   height: 32px;
@@ -1035,6 +1087,7 @@ button, input, textarea {
   align-items: center;
   justify-content: center;
   font-size: 13px;
+  box-shadow: 0 8px 18px rgba(255,255,255,0.15);
 }
 
 .play-main:hover {
@@ -1065,7 +1118,7 @@ button, input, textarea {
   appearance: none;
   height: 4px;
   border-radius: 2px;
-  background: #4d4d4d;
+  background: linear-gradient(90deg, var(--green) 0%, var(--green) var(--value, 0%), rgba(255,255,255,0.14) var(--value, 0%), rgba(255,255,255,0.14) 100%);
   outline: none;
   cursor: pointer;
 }
@@ -1125,17 +1178,15 @@ button, input, textarea {
   width: 90px;
 }
 
-/* ---------- Scrollbars ---------- */
 ::-webkit-scrollbar { width: 12px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background-color: rgba(255,255,255,0.15);
   border-radius: 8px;
-  border: 3px solid var(--bg-base);
+  border: 3px solid rgba(12, 18, 29, 0.9);
 }
 ::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.3); }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .details-panel { display: none; }
   .layout { grid-template-columns: 220px 1fr; }
